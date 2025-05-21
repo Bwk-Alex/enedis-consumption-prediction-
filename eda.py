@@ -80,14 +80,14 @@ def ana():
         # Set up a dictionary of font title
         font_title = {'family': 'sans-serif',
                                 'color':  '#114b98',
-                                'weight': 'bold'}
+                                'fontweight': 'bold'}
         
         
         fig, ax_bar = plt.subplots(figsize =(12,7))
         ax =sns.barplot(data = dg, x = 'Région', y='Total énergie soutirée (MWh)',  errorbar=None)
         for container in ax.containers:
                 ax.bar_label(container, label_type="center", fmt="{:.0f} MWH",
-                                color='#ffee78', fontsize=12, weight ='bold')
+                                color='#ffee78', fontsize=12, fontweight ='bold')
 
         ax_bar.set_title("Average electricity consumption per day", fontdict=font_title, fontsize = 22)
         ax_bar.set_xlabel(" " )
@@ -133,7 +133,7 @@ def ana():
         
         fig,ax =plt.subplots(figsize=(6,4))
         ax = DF["Categorie"].value_counts().plot.pie(explode=[0, 0.1, 0.2],autopct='%1.1f%%',shadow=False)
-        ax.set_title("Segment Distribution", weight ='bold')
+        ax.set_title("Segment Distribution", fontweight ='bold')
         ax.set_ylabel('')
         buf = BytesIO()
         fig.savefig(buf, format="png")
@@ -268,8 +268,9 @@ def ana():
         gb_plage_cvdl['Total énergie soutirée (MWh)'] = gb_plage_cvdl['Total énergie soutirée (MWh)']/len(DF['Date'].unique())
         gb_plage_hdf['Total énergie soutirée (MWh)'] = gb_plage_hdf['Total énergie soutirée (MWh)']/len(DF['Date'].unique())
         
+        
         fig,axs =plt.subplots(2,1,figsize=(12,12))
-        fig.suptitle("Consumptions per day by power ranges", fontdict=font_title, fontsize = 22)
+        fig.suptitle("Consumptions per day by power ranges", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
         ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',palette =color,ax =axs[0])
         ax2.set_ylabel('Power ranges')
         ax2.set_title('Profile : Centre-Val de Loire', pad=8, loc='left')
@@ -394,7 +395,7 @@ def ana():
             palette = {"Spring": "pink", "Summer": "green",
                         "Autumn": "#fec44f", "Winter": "#3182bd"}
             fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Seasonal consumption per point in MWh", fontdict=font_title, fontsize = 22)
+            fig.suptitle("Seasonal consumption per point in MWh", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
             ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[0],palette = palette)
             ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[1],palette = palette)
             ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -412,10 +413,10 @@ def ana():
             
             
         elif choice == ['Public holiday']:
-            tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
+            
 
             fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+            fig.suptitle("Consumption evolution by time in MWh", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
             ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[0],color = 'green')
             sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
                 ax =axs[0],s = 80, color = 'black')
@@ -423,6 +424,7 @@ def ana():
             ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[1],color = 'green')
             sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
                 ax =axs[1],s = 80, color = 'black')     
+            ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
             ax2.set_title('Profile : Hauts-de-France',  loc='left')
             ax1.set_xlabel( ' ')
             ax1.set_ylabel('Total consumption in MWh')
@@ -435,7 +437,7 @@ def ana():
         elif choice == ['School holiday']:
                 
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+                fig.suptitle("Consumption evolution by time in MWh", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
                 ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
                 ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
                 ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -451,7 +453,7 @@ def ana():
             
         else:
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+                fig.suptitle("Consumption evolution by time in MWh", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
                 ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
                 ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
                 sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
@@ -486,7 +488,7 @@ def ana():
     
 
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by kind of day", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by kind of day", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
     ax1 = sns.barplot(data = season[season['Code région']==24],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Day_type',palette = palette_box,errorbar = None)
     ax2 = sns.barplot(data = season[season['Code région']==32],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Day_type',palette = palette_box,errorbar = None)
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -593,7 +595,7 @@ def ana():
     ### Boxplot Rainy day consumption ###
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by rainy/non rainy day", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by rainy/non rainy day", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Rain')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Rain')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -610,7 +612,7 @@ def ana():
                 df_concat['Humidity'][i] = "Suitable Humidity"
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by Humidity Levels", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by Humidity Levels", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Humidity')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Humidity')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -628,7 +630,7 @@ def ana():
                 df_concat['Snow'][i] = "Snow"
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by snowy/non snowy day", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by snowy/non snowy day", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Snow')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -643,7 +645,7 @@ def ana():
     df_concat['Wind'] = df_concat['WINDSPEED_MAX_KMH'].apply(lambda x : 'Light' if x <10 else 'Moderate' if 10<=x <= 40 else 'Strong')
     df_concat['Région'] = df_concat['Code région'].apply(lambda x : 'Centre-Val de Loire' if x == 24 else 'Hauts-de-France')
     fig,axs =plt.subplots(figsize=(12,7))
-    fig.suptitle("AVG consumption per day by wind's levels", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by wind's levels", weight = 'bold',family = 'sans-serif',color=  '#114b98', fontsize = 22)
     ax = sns.barplot(data = df_concat,x= 'Wind', y ='Total énergie soutirée (MWh)',hue = 'Région',order = ['Light','Moderate','Strong'],errorbar = None)
     handles, labels = ax.get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.93),ncol=2)
@@ -769,7 +771,7 @@ def ML():
     
     
     
-    Humidity = st.number_input('What is the maximum humidity percentage ? ')
+    Humidity = st.number_input('What is the maximum humidity percentage ? ')  
        
         
     ### prédiction la consommation
@@ -779,6 +781,30 @@ def ML():
     Res= round(Res[0],2)
     
     st.write("\nWith the previouses parameters the electric consumption will be", Res, 'MWh')
+    
+    
+    df_concat['Région'] = df_concat['Code région'].replace({24: 'Centre-Val de Loire',32:'Hauts de France'})
+    
+    fig = px.violin(df_concat[(df_concat['Code région'] == code) &(df_concat['Day_type_mod'] == Day) & (df_concat['Season-modified'] == Season) & abs((df_concat['MAX_TEMPERATURE_C']- T_max)<20)& 
+                        (abs(df_concat['PRECIP_TOTAL_DAY_MM']-Precip)<0.4)  &    (abs(df_concat['TOTAL_SNOW_MM']-Snow)<0.01 ) 
+                     
+                    ], y='Total énergie soutirée (MWh)', x='Région', 
+                box=True,  
+                  
+                hover_data=df_concat.columns)  
+
+
+    fig.update_layout(
+        title=dict(
+            text='Distribution of consumption',
+            font=dict(size=20, color='#144b98', family='sans-serif'),x=0.35
+        ),
+        xaxis_title='',
+        yaxis_title='Consumption in MWh'
+    )
+    
+    
+    st.plotly_chart(fig)
     
 def ML_explain(): 
         df_concat = pd.read_csv('df_concat.csv') 
@@ -864,8 +890,8 @@ def ML_explain():
 
         fig, axs = plt.subplots(2, 1, figsize=(15, 7))
         ax1 = sns.barplot(df_models, x = 'n_components', y = 'score_test', hue = 'model', ax=axs[0], order=[24,13,8,7])
-        ax1.set_title("Test-set Score by Num of Features and Model", weight ='bold', pad=10,loc='left')
-        ax1.set_xlabel(" ", weight ='bold' )
+        ax1.set_title("Test-set Score by Num of Features and Model", fontweight ='bold', pad=10,loc='left')
+        ax1.set_xlabel(" ", fontweight ='bold' )
         ax1.set_ylabel("Accuracy score on Test set")
 
         for container in axs[0].containers:
@@ -875,7 +901,7 @@ def ML_explain():
 
         ax2 = sns.barplot(df_models, x = 'n_components', y = 'RMSE (Mwh)', hue = 'model', ax=axs[1], order=[24,13,8,7])
         ax2.legend_.remove()
-        ax2.set_title("RMSE (Mwh) by Num of Features and Model", weight ='bold', pad=10,loc='left')
+        ax2.set_title("RMSE (Mwh) by Num of Features and Model", fontweight ='bold', pad=10,loc='left')
         ax2.set_xlabel("Num of Features" )
         ax2.set_ylabel("Root Mean Squared Error")
 
