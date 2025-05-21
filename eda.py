@@ -80,14 +80,14 @@ def ana():
         # Set up a dictionary of font title
         font_title = {'family': 'sans-serif',
                                 'color':  '#114b98',
-                                'fontweight': 'bold'}
+                                'weight': 'bold'}
         
         
         fig, ax_bar = plt.subplots(figsize =(12,7))
         ax =sns.barplot(data = dg, x = 'Région', y='Total énergie soutirée (MWh)',  errorbar=None)
         for container in ax.containers:
                 ax.bar_label(container, label_type="center", fmt="{:.0f} MWH",
-                                color='#ffee78', fontsize=12, fontweight ='bold')
+                                color='#ffee78', fontsize=12, weight ='bold')
 
         ax_bar.set_title("Average electricity consumption per day", fontdict=font_title, fontsize = 22)
         ax_bar.set_xlabel(" " )
@@ -133,7 +133,7 @@ def ana():
         
         fig,ax =plt.subplots(figsize=(6,4))
         ax = DF["Categorie"].value_counts().plot.pie(explode=[0, 0.1, 0.2],autopct='%1.1f%%',shadow=False)
-        ax.set_title("Segment Distribution", fontweight ='bold')
+        ax.set_title("Segment Distribution", weight ='bold')
         ax.set_ylabel('')
         buf = BytesIO()
         fig.savefig(buf, format="png")
@@ -864,8 +864,8 @@ def ML_explain():
 
         fig, axs = plt.subplots(2, 1, figsize=(15, 7))
         ax1 = sns.barplot(df_models, x = 'n_components', y = 'score_test', hue = 'model', ax=axs[0], order=[24,13,8,7])
-        ax1.set_title("Test-set Score by Num of Features and Model", fontweight ='bold', pad=10,loc='left')
-        ax1.set_xlabel(" ", fontweight ='bold' )
+        ax1.set_title("Test-set Score by Num of Features and Model", weight ='bold', pad=10,loc='left')
+        ax1.set_xlabel(" ", weight ='bold' )
         ax1.set_ylabel("Accuracy score on Test set")
 
         for container in axs[0].containers:
@@ -875,7 +875,7 @@ def ML_explain():
 
         ax2 = sns.barplot(df_models, x = 'n_components', y = 'RMSE (Mwh)', hue = 'model', ax=axs[1], order=[24,13,8,7])
         ax2.legend_.remove()
-        ax2.set_title("RMSE (Mwh) by Num of Features and Model", fontweight ='bold', pad=10,loc='left')
+        ax2.set_title("RMSE (Mwh) by Num of Features and Model", weight ='bold', pad=10,loc='left')
         ax2.set_xlabel("Num of Features" )
         ax2.set_ylabel("Root Mean Squared Error")
 
