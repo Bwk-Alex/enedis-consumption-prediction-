@@ -378,7 +378,7 @@ def ana():
                            """)
         return(DF,dg,font_title,season)
     
-    #(DF,dg,font_title,season) = Enedis()
+    (DF,dg,font_title,season) = Enedis()
     
     Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
                         'période 7':'blue','période 8':'blue','période 9':'blue','période 20':'green','période 21':'green',
