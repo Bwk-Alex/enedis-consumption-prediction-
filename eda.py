@@ -181,25 +181,31 @@ def ana():
         d_pivot['Total']=pd.Series()
 
         for i in range (len(d_pivot)):
-                d_pivot['Total'][i] = Res[i]
+                d_pivot.loc[d_pivot.index[i], 'Total'] = Res[i]
 
 
         d_pivot1['Total']=pd.Series()
 
         for i in range (len(d_pivot1)):
-                d_pivot1['Total'][i] = Res1[i]
+                d_pivot1.loc[d_pivot1.index[i], 'Total'] = Res1[i]
 
         for j in range(len(d_pivot)):
                 for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
                         'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
                         'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot[i].iloc[j] = d_pivot[i].iloc[j]/d_pivot['Total'].iloc[j]*100
+                        d_pivot.loc[d_pivot.index[j], i] = (d_pivot.loc[d_pivot.index[j], i]
+                                                                / d_pivot.loc[d_pivot.index[j], 'Total']
+                                                                * 100
+                                                                )
 
         for j in range(len(d_pivot1)):
                 for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
                         'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
                         'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot1[i].iloc[j] = d_pivot1[i].iloc[j]/d_pivot1['Total'].iloc[j]*100
+                        d_pivot1.loc[d_pivot1.index[j], i] = (d_pivot1.loc[d_pivot1.index[j], i]
+                                                                / d_pivot1.loc[d_pivot1.index[j], 'Total']
+                                                                * 100
+                                                                )
 
         for i in d_pivot.columns:
                 d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
@@ -274,7 +280,7 @@ def ana():
 
         fig.suptitle("Consumptions per day by power ranges", weight = 'bold', fontsize = 22)
 
-        ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',palette =color,ax =axs[0])
+        ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',hue='Plage de puissance souscrite',palette=color,ax =axs[0])
         ax2.set_ylabel('Power ranges')
         ax2.set_title('Profile : Centre-Val de Loire', pad=8, loc='left')
         ax2.set_xlabel('Total energy (Mwh)')
