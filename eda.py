@@ -1027,7 +1027,7 @@ def ML_explain():
         fig1, ax = plt.subplots()
         xi = np.arange(1, 24, step=1)
         y = np.cumsum(pca.explained_variance_ratio_)
-        st.write(y)
+        
 
         plt.ylim(0.0,1.1)
         plt.plot(xi, y, marker='o', linestyle='--', color='b')
