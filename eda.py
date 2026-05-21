@@ -94,6 +94,7 @@ def ana():
         ax_bar.set_ylabel("Total consumption in MWh")
 
         st.pyplot(fig)
+        plt.close(fig)
         
         st.markdown("""
                     - Even if consumption is quiet different from the two regions, the shape of the two curves is the same.
@@ -115,7 +116,7 @@ def ana():
         fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.89),ncol=2)
         ax.get_legend().remove()
         st.pyplot(fig)  
-
+        plt.close(fig)
         
         st.header("Segment and sub-segment", divider='rainbow')
         st.markdown(" ")
@@ -178,16 +179,12 @@ def ana():
 
 
 
-        d_pivot['Total']=pd.Series()
-
-        for i in range (len(d_pivot)):
-                d_pivot.loc[d_pivot.index[i], 'Total'] = Res[i]
+        d_pivot['Total'] = Res
 
 
         d_pivot1['Total']=pd.Series()
 
-        for i in range (len(d_pivot1)):
-                d_pivot1.loc[d_pivot1.index[i], 'Total'] = Res1[i]
+        d_pivot1['Total'] = Res1
 
         for j in range(len(d_pivot)):
                 for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
@@ -242,6 +239,7 @@ def ana():
                 ax.set_ylabel(' ')
                 ax.set_xlabel(' ')
                 st.pyplot(fig)
+                plt.close(fig)
                 
                 
                 
@@ -254,6 +252,7 @@ def ana():
                 ax.set_xlabel(' ')
                 ax.set_ylabel(' ')
                 st.pyplot(fig)
+                plt.close(fig)
         
         
                
@@ -292,6 +291,7 @@ def ana():
         ax1.set_xlabel('Total energy (Mwh)')
 
         st.pyplot(fig)
+        plt.close(fig)
 
         
         
@@ -418,6 +418,7 @@ def ana():
             ax1.get_legend().remove()
             ax2.get_legend().remove()
             st.pyplot(fig) 
+            plt.close(fig)
                     
             
             
@@ -442,6 +443,7 @@ def ana():
             handles, labels = ax1.get_legend_handles_labels()
             fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
             st.pyplot(fig)
+            plt.close(fig)
             
         elif choice == ['School holiday']:
                 
@@ -458,6 +460,7 @@ def ana():
                 handles, labels = ax1.get_legend_handles_labels()
                 fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
                 st.pyplot(fig)
+                plt.close(fig)
             
             
         else:
@@ -478,6 +481,7 @@ def ana():
                 handles, labels = ax1.get_legend_handles_labels()
                 fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
                 st.pyplot(fig)
+                plt.close(fig)
                         
             
 
@@ -511,6 +515,7 @@ def ana():
     for i in ax2.containers:
         ax2.bar_label(i,)
     st.pyplot(fig)
+    plt.close(fig)
             
 
         
@@ -612,6 +617,7 @@ def ana():
     ax2.set_ylabel(' ')
     ax2.set_title('Profile : Hauts-de-France',  loc='left')
     st.pyplot(fig)
+    plt.close(fig)
     
     df_concat['Humidity'] = ""
     for i in range(len(df_concat)):
@@ -629,7 +635,7 @@ def ana():
     ax2.set_ylabel(' ')
     ax2.set_title('Profile : Hauts-de-France',  loc='left')
     st.pyplot(fig)
-    
+    plt.close(fig)
     df_concat['Date'] = pd.to_datetime(df_concat['Date'])
     df_concat['Snow'] = ""
     for i in range(len(df_concat)):
@@ -647,6 +653,7 @@ def ana():
     ax2.set_ylabel(' ')
     ax2.set_title('Profile : Hauts-de-France',  loc='left')
     st.pyplot(fig)
+    plt.close(fig)
     
     st.markdown(""" The consumption for the differents winds level are quite similar so the wind level isn't an important factor for electric consumption.
             
@@ -664,6 +671,7 @@ def ana():
     for i in ax.containers:
         ax.bar_label(i,)
     st.pyplot(fig)
+    plt.close(fig)
     
     
 
@@ -851,6 +859,7 @@ def ML_explain():
                     annot = True, cmap = 'vlag', center = 0, 
                     annot_kws={'size': 7}, linecolor="white", linewidth=0.5)
         st.pyplot(fig) 
+        plt.close(fig)
 
 
         
@@ -923,6 +932,7 @@ def ML_explain():
 
         ax1.get_legend().remove()
         st.pyplot(fig)
+        plt.close(fig)
 
         st.markdown(" ")
         st.title(":violet[Detailed Explanation]")
@@ -1053,6 +1063,7 @@ def ML_explain():
 
         ax.grid(axis='x')
         st.pyplot(fig1)
+        plt.close(fig)
 
         st.subheader('Create a Dataframe to identify variance indicators of each variable')
         st.markdown("🔹With n_components = 12")
