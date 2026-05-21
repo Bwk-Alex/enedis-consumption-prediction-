@@ -625,7 +625,7 @@ def ana():
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
     fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
+    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0])
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Snow')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
     ax1.set_ylabel(' ')
