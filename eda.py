@@ -791,6 +791,30 @@ def ML():
     
     st.write("\nWith the previouses parameters the electric consumption will be", Res, 'MWh')
     
+    
+    df_concat['Région'] = df_concat['Code région'].replace({24: 'Centre-Val de Loire',32:'Hauts de France'})
+    
+    fig = px.violin(df_concat[(df_concat['Code région'] == code) &(df_concat['Day_type_mod'] == Day) & (df_concat['Season-modified'] == Season) & abs((df_concat['MAX_TEMPERATURE_C']- T_max)<20)& 
+                        (abs(df_concat['PRECIP_TOTAL_DAY_MM']-Precip)<0.4)  &    (abs(df_concat['TOTAL_SNOW_MM']-Snow)<0.01 ) 
+                     
+                    ], y='Total énergie soutirée (MWh)', x='Région', 
+                box=True,  
+                  
+                hover_data=df_concat.columns)  
+
+
+    fig.update_layout(
+        title=dict(
+            text='Distribution of consumption',
+            font=dict(size=20, color='#144b98', family='sans-serif'),x=0.35
+        ),
+        xaxis_title='',
+        yaxis_title='Consumption in MWh'
+    )
+    
+    
+    st.plotly_chart(fig)
+    
 def ML_explain(): 
         df_concat = pd.read_csv('df_concat.csv') 
         st.header("Overview of Dataframe", divider='rainbow')
