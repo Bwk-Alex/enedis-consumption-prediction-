@@ -604,7 +604,7 @@ def ana():
         else:
                 df_concat['Humidity'][i] = "Suitable Humidity"
     
-    st.write(df_concat.columns)
+    
     fig,axs =plt.subplots(2,1,figsize=(12,12))
     fig.suptitle("AVG consumption per day by Humidity Levels", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Humidity')
@@ -623,7 +623,7 @@ def ana():
                 df_concat['Snow'][i] = "No snow"
         else:
                 df_concat['Snow'][i] = "Snow"
-    
+    st.write(df_concat.head())
     fig,axs =plt.subplots(2,1,figsize=(12,12))
     fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0])
