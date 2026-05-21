@@ -19,6 +19,14 @@ import base64
 
 
 def ana():
+    dg = pd.read_csv('dg.csv')    
+    dg['Date'] = dg['Date'].astype('str')
+    season = dg.loc[(dg["Date"] >= "2023-03-21") & (dg["Date"] < "2024-03-01")]
+    season['Date'] = pd.to_datetime(season['Date'])            
+        
+        
+        
+        
     
     
     Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
