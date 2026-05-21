@@ -21,10 +21,10 @@ import base64
 def ana():
     #@st.cache_data
         DF = pd.read_csv('DF.csv', compression='gzip')
-        DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
-        d_tree = DF[DF['Plage'] != 2].groupby(['Date','Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].sum().reset_index()
+        DF_tmp = DF.loc[DF['Plage'] != 2, ['Year', 'Région', 'Categorie', 'Profil', 'Total énergie soutirée (MWh)']].copy()
 
-        tree = d_tree.groupby(['Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].mean().reset_index()      
+        tree = (DF_tmp.groupby(['Year', 'Région', 'Categorie', 'Profil'], as_index=False)['Total énergie soutirée (MWh)'].mean()
+)  
 
         tree = tree.rename(columns={'Total énergie soutirée (MWh)': 'Energy (MWh)'})
         tree['Energy (MWh)'] = tree['Energy (MWh)'].round(2)
