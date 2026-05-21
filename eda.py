@@ -303,16 +303,8 @@ def ana():
         # Répartition de la consommation quotidienne d'un point avec sa plage de puissance par région et année.
         
         
-        d_tree = DF[DF['Plage'] != 2].groupby(['Date','Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].sum().reset_index()
         
-        tree = d_tree.groupby(['Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].mean().reset_index()
 
-        
-        tree = tree.rename(columns={'Total énergie soutirée (MWh)': 'Energy (MWh)'})
-        tree['Energy (MWh)'] = tree['Energy (MWh)'].round(2)
-        
-        
-       
 
         st.header("Consumption Analysis", divider='rainbow')
 
