@@ -193,13 +193,13 @@ def ana():
                 for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
                         'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
                         'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot[i][j] = d_pivot[i][j]/d_pivot['Total'][j]*100
+                        d_pivot[i].iloc[j] = d_pivot[i].iloc[j]/d_pivot['Total'].iloc[j]*100
 
         for j in range(len(d_pivot1)):
                 for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
                         'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
                         'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot1[i][j] = d_pivot1[i][j]/d_pivot1['Total'][j]*100
+                        d_pivot1[i].iloc[j] = d_pivot1[i].iloc[j]/d_pivot1['Total'].iloc[j]*100
 
         for i in d_pivot.columns:
                 d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
