@@ -383,7 +383,7 @@ def ana():
             palette = {"Spring": "pink", "Summer": "green",
                         "Autumn": "#fec44f", "Winter": "#3182bd"}
             fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Seasonal consumption per point in MWh", fontdict=font_title, fontsize = 22)
+            fig.suptitle("Seasonal consumption per point in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
             ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[0],palette = palette)
             ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[1],palette = palette)
             ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -405,7 +405,7 @@ def ana():
             tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
 
             fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+            fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
             ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[0],color = 'green')
             sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
                 ax =axs[0],s = 80, color = 'black')
@@ -426,7 +426,7 @@ def ana():
         elif choice == ['School holiday']:
                 
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+                fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
                 ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
                 ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
                 ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -443,7 +443,7 @@ def ana():
             
         else:
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", fontdict=font_title, fontsize = 22)
+                fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
                 ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
                 ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
                 sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
@@ -479,7 +479,7 @@ def ana():
     
 
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by kind of day", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by kind of day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.barplot(data = season[season['Code région']==24],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Day_type',palette = palette_box,errorbar = None)
     ax2 = sns.barplot(data = season[season['Code région']==32],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Day_type',palette = palette_box,errorbar = None)
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
