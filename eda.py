@@ -1025,7 +1025,7 @@ def ML_explain():
         plt.rcParams["figure.figsize"] = (12,6)
 
         fig1, ax = plt.subplots()
-        xi = np.arange(1, 25, step=1)
+        xi = np.arange(1, 24, step=1)
         y = np.cumsum(pca.explained_variance_ratio_)
 
         plt.ylim(0.0,1.1)
