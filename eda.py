@@ -249,7 +249,7 @@ def ana():
         with tab2:        
                 fig,ax =plt.subplots(figsize =(12,7))
                 ax = sns.heatmap(d_pivot.drop('Total',axis=1), annot=True, cmap="Blues",annot_kws={"fontsize":8},vmin=0, vmax=100,linewidth=.8,cbar = False)
-                ax.set_title('Distribution of profiles according to power ranges', family= 'sans-serif',color=  '#114b98',weight= 'bold', , fontsize = 22)
+                ax.set_title('Distribution of profiles according to power ranges', family= 'sans-serif',color=  '#114b98',weight= 'bold',  fontsize = 22)
                 ax.set_xlabel(' ')
                 ax.set_ylabel(' ')
                 st.pyplot(fig)
