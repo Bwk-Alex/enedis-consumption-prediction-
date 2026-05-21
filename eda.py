@@ -129,7 +129,8 @@ def ana():
                                                            """)
         
         
-        
+        DF = pd.read_csv('DF.csv', compression='gzip')
+        DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
         
         fig,ax =plt.subplots(figsize=(6,4))
         ax = DF["Categorie"].value_counts().plot.pie(explode=[0, 0.1, 0.2],autopct='%1.1f%%',shadow=False)
