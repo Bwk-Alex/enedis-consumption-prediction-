@@ -614,7 +614,8 @@ def ana():
     
     df_concat['Date'] = pd.to_datetime(df_concat['Date'])
     df_concat['Snow'] = df_concat['TOTAL_SNOW_MM'].apply(lambda x : 'No snow' if x ==0 else 'Snow')
-    st.write(df_concat.head())
+    
+    
     fig,axs =plt.subplots(2,1,figsize=(12,12))
     fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
