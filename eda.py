@@ -19,7 +19,7 @@ import base64
 
 
 def ana():
-    @st.cache_data
+    
     def Enedis():
         # Set up a dataframe for graphiques and change the mesure unit from Wh to KWh
         
