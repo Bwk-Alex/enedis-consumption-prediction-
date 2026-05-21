@@ -272,7 +272,7 @@ def ana():
         fig,axs =plt.subplots(2,1,figsize=(12,12))
 
 
-        fig.title("Consumptions per day by power ranges", fontdict=font_title, fontsize = 22)
+        fig.suptitle("Consumptions per day by power ranges", fontdict=font_title, fontsize = 22)
 
         ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',palette =color,ax =axs[0])
         ax2.set_ylabel('Power ranges')
