@@ -80,7 +80,7 @@ def ana():
         # Set up a dictionary of font title
         font_title = {'family': 'sans-serif',
                                 'color':  '#114b98',
-                                'fontweight': 'bold'}
+                                'weight': 'bold'}
         
         
         fig, ax_bar = plt.subplots(figsize =(12,7))
@@ -164,7 +164,7 @@ def ana():
         for j in range(len(d_pivot)):
                 s =0
                 for i in d_pivot.columns:
-                        s+=d_pivot[i][j]
+                        s+=d_pivot[i].iloc[j]
                 Res.append(s)
 
 
@@ -173,7 +173,7 @@ def ana():
         for j in range(len(d_pivot1)):
                 s=0
                 for i in d_pivot1.columns:
-                        s+=d_pivot1[i][j]
+                        s+=d_pivot1[i].iloc[j]
                 Res1.append(s)
 
 
