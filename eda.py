@@ -49,6 +49,161 @@ def ana():
                - The region HDF has 3,3 millions more inhabitants  than the region CVDL (2,39 times) but its total electricity consumption is 1.8 times higher than CVDL's.  In the other hand, HDF consums 7% less electricity for heating than CVDL. From this perspective, the size of house/ appartement, type of heating energy should be considered as very important factors in electricity consumption.                 
                                  """)
        # Chart of total consumption
+       
+       # Set up a dictionary of font title
+        font_title = {'family': 'sans-serif',
+                                'color':  '#114b98',
+                                'weight': 'bold'}
+        
+        
+        fig, ax_bar = plt.subplots(figsize =(12,7))
+        ax =sns.barplot(data = dg, x = 'Région', y='Total énergie soutirée (MWh)',  errorbar=None)
+        for container in ax.containers:
+                ax.bar_label(container, label_type="center", fmt="{:.0f} MWH",
+                                color='#ffee78', fontsize=12, fontweight ='bold')
+
+        ax_bar.set_title("Average electricity consumption per day", fontdict=font_title, fontsize = 22)
+        ax_bar.set_xlabel(" " )
+        ax_bar.set_ylabel("Total consumption in MWh")
+
+        st.pyplot(fig)
+        plt.close(fig)
+        
+        st.markdown("""
+                    - Even if consumption is quiet different from the two regions, the shape of the two curves is the same.
+                    
+                    - In January consumption is at his highest level for both regions and in August it's at his lowest level.
+                    
+                    - Over the two years the shape of the curves is repeated.
+                    
+                    """)
+        
+        dg['Date'] = pd.to_datetime(dg['Date'])
+        
+        fig,axs =plt.subplots(figsize=(12,7))
+        ax = sns.lineplot(data = dg,x = 'Date',y = "Total énergie soutirée (MWh)",hue = 'Région')
+        ax.set_xlabel(' ')
+        ax.set_ylabel("Total consumption in MWH")
+        ax.set_title('Consumption by date', fontdict=font_title, fontsize = 22)
+        handles, labels = ax.get_legend_handles_labels()
+        fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.89),ncol=2)
+        ax.get_legend().remove()
+        st.pyplot(fig)  
+        plt.close(fig)
+        
+        st.header("Segment and sub-segment", divider='rainbow')
+        st.markdown(" ")
+        st.subheader("🔹Consumer Profile")
+        st.markdown("""
+                                - There are a total of 20 contract profiles in the dataset. We tried to understand if this information will be important, and we found that they are about consumer segment of Enedis. They are like a kind of client identity, so we can not encode this information but classify them into 3 groups: company, professional and residence.
+                                So the segment 'Professional' occurences 50% of the data in both regions.
+
+                                - Energy consumption depends on each purpose which is possible to be explained by the registered profile in the contract. We have to divide the rations into smaller portions depending on the profile in order to observe better the consumption trend of each profile category later.
+                                                           """)
+        DF = pd.read_csv('DF.csv', compression='gzip')
+        DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
+        
+        
+        
+        fig,ax =plt.subplots(figsize=(6,4))
+        ax = DF["Categorie"].value_counts().plot.pie(explode=[0, 0.1, 0.2],autopct='%1.1f%%',shadow=False)
+        ax.set_title("Segment Distribution", fontweight ='bold')
+        ax.set_ylabel('')
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        buf.seek(0)
+        data = base64.b64encode(buf.read()).decode("utf-8")
+        html = f"<div style='text-align: center'><img src='data:image/png;base64,{data}'/></div>"
+
+
+        st.markdown(html, unsafe_allow_html=True)
+                
+        
+        
+       
+        
+        
+### ajout df et creation tableau pour heat map alex     
+        
+        d_pivot = DF[DF['Code région'] == 24].pivot_table(index = 'Profil',columns = 'Plage de puissance souscrite',values ='Nb points soutirage',
+                                                                                                  aggfunc = 'mean').reset_index().set_index('Profil')
+        d_pivot1 = DF[DF['Code région'] == 32].pivot_table(index = 'Profil',columns = 'Plage de puissance souscrite',values ='Nb points soutirage',
+                                                                                                   aggfunc = 'mean').reset_index().set_index('Profil')
+
+        d_pivot = d_pivot.drop('P0: Total <= 36 kVA',axis = 1).fillna(0)
+        d_pivot1 = d_pivot1.drop('P0: Total <= 36 kVA',axis = 1).fillna(0)
+        d_pivot  = d_pivot.drop([ 'ENT3 (+ ENT4 + ENT5)','ENT1 (+ ENT2)'])
+        d_pivot1  = d_pivot1.drop([ 'ENT3 (+ ENT4 + ENT5)','ENT1 (+ ENT2)'])
+        Res = []
+        for j in range(len(d_pivot)):
+                s =0
+                for i in d_pivot.columns:
+                        s+=d_pivot[i].iloc[j]
+                Res.append(s)
+
+
+
+        Res1 = []
+        for j in range(len(d_pivot1)):
+                s=0
+                for i in d_pivot1.columns:
+                        s+=d_pivot1[i].iloc[j]
+                Res1.append(s)
+
+
+
+        d_pivot['Total'] = Res
+
+
+        d_pivot1['Total']=pd.Series()
+
+        d_pivot1['Total'] = Res1
+
+        for j in range(len(d_pivot)):
+                for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
+                        'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
+                        'P8: ]24-30] kVA','P9: ]30-36] kVA']:
+                        d_pivot.loc[d_pivot.index[j], i] = (d_pivot.loc[d_pivot.index[j], i]
+                                                                / d_pivot.loc[d_pivot.index[j], 'Total']
+                                                                * 100
+                                                                )
+
+        for j in range(len(d_pivot1)):
+                for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
+                        'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
+                        'P8: ]24-30] kVA','P9: ]30-36] kVA']:
+                        d_pivot1.loc[d_pivot1.index[j], i] = (d_pivot1.loc[d_pivot1.index[j], i]
+                                                                / d_pivot1.loc[d_pivot1.index[j], 'Total']
+                                                                * 100
+                                                                )
+
+        for i in d_pivot.columns:
+                d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
+
+
+        for i in d_pivot1.columns:
+                d_pivot1[i] = d_pivot1[i].apply(lambda x: '%.2f' % x)
+
+        for i in d_pivot.columns:
+                d_pivot[i] = d_pivot[i].astype("float64")
+
+        for i in d_pivot1.columns:
+                d_pivot1[i] = d_pivot1[i].astype("float64")
+
+
+        st.markdown("""
+                                - The distribution of power ranges is different depending on the contract category. It can be seen that professionals generally need more power than residents.
+
+                                - Despite slight differences between the two regions, the distribution of power ranges is similar.
+
+                                - We can note that we do not have data for companies.
+
+                                """)
+       
+       
+       
+       
+       
         Holiday = ['période 1','période 2','période 3','période 4','période 5','période 6','période 7','période 8','période 9']
         Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
                          'période 7':'blue','période 8':'blue','période 9':'blue','période 20':'green','période 21':'green',
