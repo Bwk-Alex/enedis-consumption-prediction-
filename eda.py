@@ -294,65 +294,6 @@ def ana():
         plt.close(fig)
 
         
-        
-        
-        st.markdown("""
-                                While the previouses charts permit us observing better the consumption behavior of each contract category, this graphic helps us explain the  portions of energy consumption which are distributed by each registered power allows of each profile. Brief, the registered power allows explains, in general, electricity needs of consumers. The larger the limit of power allows, the more energy will be extracted.""")
-        
-
-        # Répartition de la consommation quotidienne d'un point avec sa plage de puissance par région et année.
-        
-        
-        d_tree = DF[DF['Plage'] != 2].groupby(['Date','Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].sum().reset_index()
-        
-        tree = d_tree.groupby(['Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].mean().reset_index()
-
-        
-        tree = tree.rename(columns={'Total énergie soutirée (MWh)': 'Energy (MWh)'})
-        tree['Energy (MWh)'] = tree['Energy (MWh)'].round(2)
-        
-        
-        tree_map = px.treemap(tree, path=[px.Constant("France"),"Year","Région", "Categorie", "Profil"], 
-                                        values = "Energy (MWh)", color = "Energy (MWh)",
-                                        color_continuous_scale='blues')
-
-        tree_map.update_layout(margin = dict(t=50, l=25, r=25, b=25), 
-                                        title=dict(text="Daily average regional consumption per contract with its power range", 
-                                                                font=dict(size=20)))
-        tree_map.update_traces(textinfo="label+text+value")
-
-        st.plotly_chart(tree_map, theme="streamlit")
-
-
-        st.header("Consumption Analysis", divider='rainbow')
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-
-                        st.image("hdf.png", width = 300)
-                        change_font = '<p style="font-family:Corbel; color:#5d0076; font-size: 25px;">DID YOU KNOW? 😎</p>'
-                        st.markdown(change_font, unsafe_allow_html=True)
-                        change_font = '<p style="font-family:Corbel; color:#5d0076; font-size: 18px;">"Hauts-de-France is the most dynamic region in the development of collective self-consumption operations, with 38 operations in service in Q3/2023"</p>'
-                        st.markdown(change_font, unsafe_allow_html=True)
-                        #st.markdown("Did you kow that Hauts-de-France is the most dynamic region in the development of collective self-consumption operations, with 38 operations in service in Q3/2023")
-  
-        with col2:
-
-                        st.image("cvdl.png", width = 300)
-                        change_font = '<p style="font-family:Corbel; color:#5d0076; font-size: 25px;">DID YOU KNOW? 😎</p>'
-                        st.markdown(change_font, unsafe_allow_html=True)
-                        change_font = '<p style="font-family:Corbel; color:#5d0076; font-size: 18px;">"Centre-Val de Loire is the 2nd region which produces the most nuclear energy, with 62.92TWh in 2022"</p>'
-                        st.markdown(change_font, unsafe_allow_html=True)
-                        st.markdown("")
-
-
-
-        #### Consumption analysis ####
-        
-        st.subheader("Evolution of consumption")
-
-       
 
    
 
