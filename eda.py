@@ -587,7 +587,7 @@ def ana():
     ### Boxplot Rainy day consumption ###
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by rainy/non rainy day", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by rainy/non rainy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Rain')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Rain')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
@@ -605,7 +605,7 @@ def ana():
                 df_concat['Humidity'][i] = "Suitable Humidity"
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by Humidity Levels", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by Humidity Levels", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
     ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Humidity')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Humidity')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
