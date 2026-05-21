@@ -357,25 +357,6 @@ def ana():
    
 
 
-        ### GRAPHIQUES by region, create 2 tab to show regional chart ###
-
-        ### Seasonal Trend ###
-        
-        
-        
-        dg['Date'] = dg['Date'].astype('str')
-        season = dg.loc[(dg["Date"] >= "2023-03-21") & (dg["Date"] < "2024-03-01")]
-        season['Date'] = pd.to_datetime(season['Date'])
-        
-        
-
-   
-        
-        st.markdown("""
-                           - Whatever the region chosen, consumption fluctuates enormously over time as we have seen previously.
-                           - Through the differents seasons consumption is clearly different. Winter's consumption is the highest wheareas the Summer's one is the lowest.
-                           - School holidays and public holidays have no influence on consumption.             
-                           """)
         
     
     
