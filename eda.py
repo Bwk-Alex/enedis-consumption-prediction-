@@ -296,36 +296,23 @@ def ana():
         
         
         
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+        st.markdown("""
+                                While the previouses charts permit us observing better the consumption behavior of each contract category, this graphic helps us explain the  portions of energy consumption which are distributed by each registered power allows of each profile. Brief, the registered power allows explains, in general, electricity needs of consumers. The larger the limit of power allows, the more energy will be extracted.""")
+        
 
+        # Répartition de la consommation quotidienne d'un point avec sa plage de puissance par région et année.
+        
+        
+        d_tree = DF[DF['Plage'] != 2].groupby(['Date','Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].sum().reset_index()
+        
+        tree = d_tree.groupby(['Year','Région','Categorie','Profil'])['Total énergie soutirée (MWh)'].mean().reset_index()
+
+        
+        tree = tree.rename(columns={'Total énergie soutirée (MWh)': 'Energy (MWh)'})
+        tree['Energy (MWh)'] = tree['Energy (MWh)'].round(2)
+        
+        
+       
 
         st.header("Consumption Analysis", divider='rainbow')
 
