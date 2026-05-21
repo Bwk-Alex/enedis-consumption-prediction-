@@ -107,11 +107,11 @@ def ana():
         
         dg['Date'] = pd.to_datetime(dg['Date'])
         
-        fig,axs =plt.subplots(figsize=(12,7))
+        fig,ax =plt.subplots(figsize=(12,7))
         ax = sns.lineplot(data = dg,x = 'Date',y = "Total énergie soutirée (MWh)",hue = 'Région')
         ax.set_xlabel(' ')
         ax.set_ylabel("Total consumption in MWH")
-        ax.set_title('Consumption by date', fontdict=font_title, fontsize = 22)
+        ax.set_title('Consumption by date', family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
         handles, labels = ax.get_legend_handles_labels()
         fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.89),ncol=2)
         ax.get_legend().remove()
@@ -236,7 +236,7 @@ def ana():
         with tab1:
                 fig,ax =plt.subplots(figsize =(12,7))
                 ax = sns.heatmap(d_pivot1.drop('Total',axis=1), annot=True, cmap="Blues",annot_kws={"fontsize":8},vmin=0, vmax=100,linewidth=.8,cbar = False)
-                ax.set_title('Distribution of profiles according to power ranges', fontdict=font_title, fontsize = 22)
+                ax.set_title('Distribution of profiles according to power ranges', family= 'sans-serif',color=  '#114b98',weight= 'bold',  fontsize = 22)
                 ax.set_ylabel(' ')
                 ax.set_xlabel(' ')
                 st.pyplot(fig)
@@ -249,7 +249,7 @@ def ana():
         with tab2:        
                 fig,ax =plt.subplots(figsize =(12,7))
                 ax = sns.heatmap(d_pivot.drop('Total',axis=1), annot=True, cmap="Blues",annot_kws={"fontsize":8},vmin=0, vmax=100,linewidth=.8,cbar = False)
-                ax.set_title('Distribution of profiles according to power ranges', fontdict=font_title, fontsize = 22)
+                ax.set_title('Distribution of profiles according to power ranges', family= 'sans-serif',color=  '#114b98',weight= 'bold', , fontsize = 22)
                 ax.set_xlabel(' ')
                 ax.set_ylabel(' ')
                 st.pyplot(fig)
@@ -640,7 +640,7 @@ def ana():
     df_concat['Wind'] = df_concat['WINDSPEED_MAX_KMH'].apply(lambda x : 'Light' if x <10 else 'Moderate' if 10<=x <= 40 else 'Strong')
     df_concat['Région'] = df_concat['Code région'].apply(lambda x : 'Centre-Val de Loire' if x == 24 else 'Hauts-de-France')
     fig,axs =plt.subplots(figsize=(12,7))
-    fig.suptitle("AVG consumption per day by wind's levels", fontdict=font_title, fontsize = 22)
+    fig.suptitle("AVG consumption per day by wind's levels", family= 'sans-serif',color=  '#114b98',weight= 'bold',  fontsize = 22)
     ax = sns.barplot(data = df_concat,x= 'Wind', y ='Total énergie soutirée (MWh)',hue = 'Région',order = ['Light','Moderate','Strong'],errorbar = None)
     handles, labels = ax.get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.93),ncol=2)
