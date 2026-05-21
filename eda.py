@@ -597,12 +597,8 @@ def ana():
     st.pyplot(fig)
     plt.close(fig)
     
-    df_concat['Humidity'] = ""
-    for i in range(len(df_concat)):
-        if df_concat['HUMIDITY_MAX_PERCENT'][i] > 70:
-                df_concat['Humidity'][i] = "Humidity > 70 %"
-        else:
-                df_concat['Humidity'][i] = "Suitable Humidity"
+    df_concat['Humidity'] = df_concat['HUMIDITY_MAX_PERCENT'].apply(lambda x : "Humidity > 70 %" if x> 70 else "Suitable Humidity")
+    
     
     
     fig,axs =plt.subplots(2,1,figsize=(12,12))
@@ -617,16 +613,11 @@ def ana():
     plt.close(fig)
     
     df_concat['Date'] = pd.to_datetime(df_concat['Date'])
-    df_concat['Snow'] = ""
-    for i in range(len(df_concat)):
-        if df_concat['TOTAL_SNOW_MM'][i] ==0:
-                df_concat['Snow'][i] = "No snow"
-        else:
-                df_concat['Snow'][i] = "Snow"
+    df_concat['Snow'] = df_concat['TOTAL_SNOW_MM'].apply(lambda x : 'No snow' if x ==0 else 'Snow')
     st.write(df_concat.head())
     fig,axs =plt.subplots(2,1,figsize=(12,12))
     fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0])
+    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
     ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Snow')
     ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
     ax1.set_ylabel(' ')
