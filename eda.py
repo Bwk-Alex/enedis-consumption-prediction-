@@ -380,14 +380,7 @@ def ana():
     
     (DF,dg,font_title,season) = Enedis()
     
-    Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
-                        'période 7':'blue','période 8':'blue','période 9':'blue','période 20':'green','période 21':'green',
-                        'période 22':'green','période 23':'green','période 24':'green','période 25':'green','période 26':'green',
-                        'période 27':'green','période 28':'green','période 29':'green','période 30':'green','période 31':'green'}
-        
-    Jour_ferie = ['2022-04-18','2022-05-01','2022-05-08','2022-05-26','2022-06-06','2022-07-14','2022-08-15','2022-11-01','2022-11-11','2022-12-25',
-                          '2023-01-01','2023-04-10','2023-05-01','2023-05-08','2023-05-29','2023-07-14','2023-08-15','2023-11-01','2023-11-11','2023-12-25',
-                          '2024-01-01','2024-04-01']
+    
     
     
         
