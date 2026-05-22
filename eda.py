@@ -276,13 +276,13 @@ def ana():
         
         fig,axs =plt.subplots(2,1,figsize=(12,12))
         fig.suptitle("Consumptions per day by power ranges", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-        ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',palette =color,ax =axs[0])
+        ax2 = sns.barplot(data =gb_plage_cvdl,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',hue='Plage de puissance souscrite',palette =color,ax =axs[0],legend=False)
         ax2.set_ylabel('Power ranges')
         ax2.set_title('Profile : Centre-Val de Loire', pad=8, loc='left')
         ax2.set_xlabel('Total energy (Mwh)')
 
 
-        ax1 = sns.barplot(data =gb_plage_hdf,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',palette =color,ax =axs[1])
+        ax1 = sns.barplot(data =gb_plage_hdf,y ='Plage de puissance souscrite',x= 'Total énergie soutirée (MWh)',hue='Plage de puissance souscrite',palette =color,ax =axs[1])
         ax1.set_title('Profile : Hauts-de-France', pad=8, loc='left')
         ax1.set_ylabel('Power ranges')
         ax1.set_xlabel('Total energy (Mwh)')
