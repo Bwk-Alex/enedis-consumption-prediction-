@@ -978,7 +978,7 @@ def ML_explain():
         df_concat['Day_type_mod'] = df_concat['Day_type'].replace({'Normal Day':0, 'Week-end':1, 'School Holidays':2, 'National Holidays':3}).astype(int)
         
         X = df_concat.select_dtypes('number').drop('Total énergie soutirée (MWh)',axis = 1)
-        st.write(X.columns)
+        
         y= df_concat['Total énergie soutirée (MWh)']
 
         # Split and standardize X
@@ -1111,11 +1111,10 @@ def ML_explain():
         st.write(pca_df)
         st.markdown('Get the most 12 variables having big variance in the datset')
         important_components = pca_df.abs().sum().sort_values(ascending=False)
-        cod1 = '''
-                     important_components = pca_df.abs().sum().sort_values(ascending=False)
-                     important_components[0:12].index
-                     print(important_components)
-                    '''
+        cod1 = textwrap.dedent('''
+        important_components = pca_df.abs().sum().sort_values(ascending=False)
+        important_components[0:12].index
+        print(important_components)''')
         st.code(cod1, language='python')
 
         st.write(important_components)
@@ -1139,11 +1138,10 @@ def ML_explain():
         st.write(pca_df)
         st.markdown('Get the most 6 variables having big variance in the datset')
         important_components = pca_df.abs().sum().sort_values(ascending=False)
-        cod2 = '''
-                     important_components = pca_df.abs().sum().sort_values(ascending=False)
-                     important_components[0:6].index
-                     print(important_components)
-                    '''
+        cod2 = textwrap.dedent('''
+        important_components = pca_df.abs().sum().sort_values(ascending=False)
+        important_components[0:6].index
+        print(important_components)''')
         st.code(cod2, language='python')
 
         st.write(important_components)
@@ -1157,15 +1155,14 @@ def ML_explain():
         
         st.header("RandomizedSearchCV for best params of model DTR", divider='rainbow')
         
-        code2 = '''
-                dico = {'max_depth': range(1, 20),
-                'min_samples_split': range(2, 20),
-                'min_samples_leaf': range(1, 20)}
-                dtree_reg = DecisionTreeRegressor(random_state=42)
-                rando = RandomizedSearchCV(dtree_reg, param_distributions=dico , 
-                                        n_iter=100, cv=10, random_state=42)
-                rando.fit(X_train_scaled, y_train)
-        '''
+        code2 = textwrap.dedent('''
+        dico = {'max_depth': range(1, 20),
+        'min_samples_split': range(2, 20),
+        'min_samples_leaf': range(1, 20)}
+        dtree_reg = DecisionTreeRegressor(random_state=42)
+        rando = RandomizedSearchCV(dtree_reg, param_distributions=dico , 
+                                n_iter=100, cv=10, random_state=42)
+        rando.fit(X_train_scaled, y_train)''')
         st.code(code2, language='python')
         
         st.markdown(" ")
