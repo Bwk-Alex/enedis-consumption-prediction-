@@ -18,7 +18,7 @@ from io import BytesIO
 import base64
 
 
-@st.cache_data
+
 def load_data():
 
     dg = pd.read_csv("dg.csv")
@@ -31,7 +31,7 @@ def load_data():
 
     return (DF, dg, df_concat)
 
-@st.cache_data
+
 def prepare_season(dg):
 
     season = dg.loc[(dg["Date"] >= "2023-03-21")&(dg["Date"] < "2024-03-01")].copy()
