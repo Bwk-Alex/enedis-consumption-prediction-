@@ -130,41 +130,16 @@ def ana():
                                                            """)
         DF = pd.read_csv('DF.csv', compression='gzip')
         DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
+              
         
-        
-        
-        fig, ax = plt.subplots(figsize=(6,4))
-        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax, textprops={"fontsize":8})
-        ax.set_title("Segment Distribution",fontsize =10)
-        ax.set_ylabel("")
-        st.pyplot(fig, width="content")
-        plt.close(fig)
-        
-        
-        
-        fig, ax = plt.subplots(figsize=(2.8, 2.8))
+        fig, ax = plt.subplots(figsize=(2.8, 2.5))
 
-        DF["Categorie"].value_counts().plot.pie(
-            explode=[0, 0.05, 0.10],
-            autopct="%1.1f%%",
-            shadow=False,
-            ax=ax,
-            textprops={"fontsize":7},
-            radius=0.8
-        )
-        
-        ax.set_title(
-            "Segment Distribution",
-            fontsize=9,
-            pad=4
-        )
-        
+        DF["Categorie"].value_counts().plot.pie(explode=[0, 0.05, 0.10],autopct="%1.1f%%",shadow=False,ax=ax,textprops={"fontsize":7},radius=0.8)
+
+        ax.set_title("Segment Distribution",fontsize=9,pad=4)
         ax.set_ylabel("")
-        
         fig.tight_layout(pad=0.2)
-        
         st.pyplot(fig, width="content")
-        
         plt.close(fig)
         
                 
