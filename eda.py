@@ -976,6 +976,7 @@ def ML_explain():
         # Initialize X, y
         # 1st reound: X has 24 features
         df_concat['Day_type_mod'] = df_concat['Day_type'].replace({'Normal Day':0, 'Week-end':1, 'School Holidays':2, 'National Holidays':3})
+        st.write(df_concat.head(5))
         X = df_concat.select_dtypes('number').drop('Total énergie soutirée (MWh)',axis = 1)
         st.write(X.columns)
         y= df_concat['Total énergie soutirée (MWh)']
