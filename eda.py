@@ -379,7 +379,7 @@ def ana():
     @st.fragment
     def show_consumption():
 
-        choice = st.multiselect(
+        choice = st.radio(
         'Choose a specification :',
         options=['Seasonal','Public holiday','School holiday','Combined'],
         default='Seasonal'
