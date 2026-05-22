@@ -1003,7 +1003,9 @@ def ML_explain():
         scaler = StandardScaler().fit(X_train)
         X_train_scaled = scaler.transform(X_train)
         X_test_scaled = scaler.transform(X_test)'''
-        st.markdown("""<style>div[data-testid="stCodeBlock"] pre {padding: 6px !important;}</style>""", unsafe_allow_html=True)
+        st.markdown("""<style>div[data-testid="stCodeBlock"] pre {padding-left: 6px !important;}div[data-testid="stCodeBlock"] code { margin-left: 0 !important;}</style>""", unsafe_allow_html=True)
+
+        st.code(code, language="python")
         st.subheader("Initialize-split X,y and standardize data")
         st.code(code, language='python')
         
