@@ -320,36 +320,6 @@ def ana():
         tree_map.update_traces(textinfo="label+value")
         st.plotly_chart(tree_map,width="stretch",theme="streamlit")
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
-
-
         st.header("Consumption Analysis", divider='rainbow')
 
         col1, col2 = st.columns(2)
@@ -378,24 +348,14 @@ def ana():
         
         st.subheader("Evolution of consumption")
 
-       
-
-   
-
 
         ### GRAPHIQUES by region, create 2 tab to show regional chart ###
 
         ### Seasonal Trend ###
         
-        
-        
         dg['Date'] = dg['Date'].astype('str')
         season = dg.loc[(dg["Date"] >= "2023-03-21") & (dg["Date"] < "2024-03-01")]
         season['Date'] = pd.to_datetime(season['Date'])
-        
-        
-
-   
         
         st.markdown("""
                            - Whatever the region chosen, consumption fluctuates enormously over time as we have seen previously.
@@ -416,14 +376,16 @@ def ana():
                           '2024-01-01','2024-04-01']
     
     
-        
-        
-    with st.container():
+    @st.fragment
+    def show_consumption():
+
         choice = st.multiselect(
         'Choose a specification :',
-        options=['Seasonal','Public holiday', 'School holiday'],
-        default= 'Seasonal'
-        )
+        options=['Seasonal','Public holiday','School holiday'],
+        default='Seasonal'
+        )   
+        
+    
         if choice == ['Seasonal']:
             
 
@@ -444,7 +406,7 @@ def ana():
             ax1.get_legend().remove()
             ax2.get_legend().remove()
             st.pyplot(fig) 
-            plt.close(fig)
+           
                     
             
             
@@ -468,7 +430,7 @@ def ana():
             handles, labels = ax1.get_legend_handles_labels()
             fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
             st.pyplot(fig)
-            plt.close(fig)
+            
             
         elif choice == ['School holiday']:
                 
@@ -485,7 +447,7 @@ def ana():
                 handles, labels = ax1.get_legend_handles_labels()
                 fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
                 st.pyplot(fig)
-                plt.close(fig)
+                
             
             
         else:
@@ -506,8 +468,8 @@ def ana():
                 handles, labels = ax1.get_legend_handles_labels()
                 fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
                 st.pyplot(fig)
-                plt.close(fig)
-                        
+                
+    show_consumption()                            
             
 
 
@@ -1160,7 +1122,7 @@ def ML_explain():
         'min_samples_split': range(2, 20),
         'min_samples_leaf': range(1, 20)}
         dtree_reg = DecisionTreeRegressor(random_state=42)
-        rando = RandomizedSearchCV(dtree_reg, param_distributions=dico , 
+        rando = RandomizedSearchCV(dtree_reg, param_distributions=dico ,
                                 n_iter=100, cv=10, random_state=42)
         rando.fit(X_train_scaled, y_train)''')
         st.code(code2, language='python')
