@@ -119,7 +119,7 @@ def ana():
         plt.close(fig) 
 
         
-        st.header("Segment and sub-segment", divider='rainbow')
+        st.subheader("Segment and sub-segment", divider='rainbow')
         st.markdown(" ")
         st.subheader("🔹Consumer Profile")
         st.markdown("""
@@ -134,7 +134,7 @@ def ana():
         
         
         fig, ax = plt.subplots(figsize=(1,1))
-        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax, textprops={"fontsize":2})
+        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax, textprops={"fontsize":4})
         ax.set_title("Segment Distribution")
         ax.set_ylabel("")
         st.pyplot(fig)
