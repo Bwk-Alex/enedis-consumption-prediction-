@@ -381,7 +381,7 @@ def ana():
 
         choice = st.multiselect(
         'Choose a specification :',
-        options=['Seasonal','Public holiday','School holiday'],
+        options=['Seasonal','Public holiday','School holiday','Combined'],
         default='Seasonal'
         )   
         
@@ -450,7 +450,7 @@ def ana():
                 
             
             
-        else:
+        elif choice == ['Combined']:
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
                 fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
                 ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
