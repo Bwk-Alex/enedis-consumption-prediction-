@@ -2,9 +2,6 @@ import streamlit as st
 from eda import intro, ana, ML,ML_explain
 
 # Background
-# Configuration de la page (Optionnel, mais aide à stabiliser le rendu)
-st.set_page_config(layout="wide")
-
 # Background corrigé et forcé
 page_bg_img = """
 <style>
@@ -20,6 +17,23 @@ page_bg_img = """
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Sidebar's background 
