@@ -466,7 +466,8 @@ def ana():
                 fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
                 st.pyplot(fig)
                 
-    show_consumption()                            
+    show_consumption()   
+    st.write(season.dtype)                         
             
 
 
