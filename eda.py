@@ -977,6 +977,7 @@ def ML_explain():
         # 1st reound: X has 24 features
         df_concat['Day_type_mod'] = df_concat['Day_type'].replace({'Normal Day':0, 'Week-end':1, 'School Holidays':2, 'National Holidays':3})
         X = df_concat.select_dtypes('number').drop('Total énergie soutirée (MWh)',axis = 1)
+        st.write(X.columns)
         y= df_concat['Total énergie soutirée (MWh)']
 
         # Split and standardize X
@@ -1072,7 +1073,7 @@ def ML_explain():
         plt.rcParams["figure.figsize"] = (12,6)
 
         fig1, ax = plt.subplots()
-        xi = np.arange(1, 24, step=1)
+        xi = np.arange(1, 25, step=1)
         y = np.cumsum(pca.explained_variance_ratio_)
         
 
