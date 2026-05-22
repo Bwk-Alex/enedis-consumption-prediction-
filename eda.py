@@ -16,7 +16,7 @@ from sklearn import metrics
 from sklearn.decomposition import PCA
 from io import BytesIO
 import base64
-
+import textwrap
 
 def ana():
     #@st.cache_data
@@ -986,7 +986,7 @@ def ML_explain():
         scaler = StandardScaler().fit(X_train)
         X_train_scaled = scaler.transform(X_train)
         X_test_scaled = scaler.transform(X_test)
-        import textwrap
+        
         code = textwrap.dedent('''
         # Initialize X, y
         # 1st reound: X has 24 features
@@ -1048,11 +1048,10 @@ def ML_explain():
         # Initialze CPA to find the n_components
         pca = PCA().fit(X_train_scaled)
         
-        code_pca = '''
-                    # Initialize CPA to find the n_components
-                    pca = PCA().fit(X_train_scaled)
-                    pca.explained_variance_ratio_                
-                        '''
+        code_pca = textwrap.dedent('''
+        # Initialize CPA to find the n_components
+        pca = PCA().fit(X_train_scaled)
+        pca.explained_variance_ratio_''')
         st.code(code_pca, language='python')
         
         st.write("The ratio of variance explained for each of the new dimensions:")                             
