@@ -299,6 +299,43 @@ def ana():
 
         # Répartition de la consommation quotidienne d'un point avec sa plage de puissance par région et année.
         
+        DF_tmp = DF.loc[DF['Plage'] != 2, ['Year', 'Région', 'Categorie', 'Profil', 'Total énergie soutirée (MWh)']].copy()
+        tree = (DF_tmp.groupby(['Year', 'Région', 'Categorie', 'Profil'], as_index=False)['Total énergie soutirée (MWh)'].mean())
+        tree = tree.rename(columns={'Total énergie soutirée (MWh)': 'Energy (MWh)'})
+        tree['Energy (MWh)'] = tree['Energy (MWh)'].round(2)
+        
+        tree_map = px.treemap(tree,path=[px.Constant("France"),"Year","Région","Categorie","Profil"],values="Energy (MWh)",color="Energy (MWh)",color_continuous_scale="Blues")
+        tree_map.update_layout(margin=dict(t=50,l=25,r=25,b=25),title={"text": "Daily average regional consumption per contract with its power range","font": {"size": 20}})
+        
+        tree_map.update_traces(textinfo="label+value")
+        st.plotly_chart(tree_map,use_container_width=True,theme="streamlit")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
        
 
