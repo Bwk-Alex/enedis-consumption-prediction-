@@ -134,8 +134,8 @@ def ana():
         
         
         fig, ax = plt.subplots(figsize=(2,1))
-        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax, textprops={"fontsize":4})
-        ax.set_title("Segment Distribution",fontsize =6)
+        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax, textprops={"fontsize":2})
+        ax.set_title("Segment Distribution",fontsize =4)
         ax.set_ylabel("")
         st.pyplot(fig)
         plt.close(fig)
