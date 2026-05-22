@@ -133,18 +133,13 @@ def ana():
         
         
         
-        fig,ax =plt.subplots(figsize=(6,4))
-        ax = DF["Categorie"].value_counts().plot.pie(explode=[0, 0.1, 0.2],autopct='%1.1f%%',shadow=False)
-        ax.set_title("Segment Distribution", fontweight ='bold')
-        ax.set_ylabel('')
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        buf.seek(0)
-        data = base64.b64encode(buf.read()).decode("utf-8")
-        html = f"<div style='text-align: center'><img src='data:image/png;base64,{data}'/></div>"
-
-
-        st.markdown(html, unsafe_allow_html=True)
+        fig, ax = plt.subplots(figsize=(6,4))
+        DF["Categorie"].value_counts().plot.pie(explode=[0,0.1,0.2],autopct="%1.1f%%",shadow=False,ax=ax)
+        ax.set_title("Segment Distribution")
+        ax.set_ylabel("")
+        st.pyplot(fig)
+        plt.close(fig)
+        
                 
         
         
