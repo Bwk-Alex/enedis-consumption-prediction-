@@ -18,32 +18,10 @@ from io import BytesIO
 import base64
 
 
-
-def load_data():
-
-    dg = pd.read_csv("dg.csv")
-    DF = pd.read_csv("DF.csv",compression="gzip")
-
-    df_concat = pd.read_csv("df_concat.csv")
-    dg["Date"] = pd.to_datetime(dg["Date"])
-    df_concat["Date"] = pd.to_datetime(df_concat["Date"])
-    DF["Categorie"] = DF["Categorie"].replace({"Pro": "Professional","Res": "Residence","Ent": "Company"})
-
-    return (DF, dg, df_concat)
-
-
-def prepare_season(dg):
-
-    season = dg.loc[(dg["Date"] >= "2023-03-21")&(dg["Date"] < "2024-03-01")].copy()
-    return season
-
-
 def ana():
+    #@st.cache_data
     def Enedis():
         # Set up a dataframe for graphiques and change the mesure unit from Wh to KWh
-        
-        DF, dg, df_concat = load_data()
-        season = prepare_season(dg)
         
         st.title("Regional Consupmtion Analysis")
         
@@ -95,7 +73,7 @@ def ana():
                           '2023-01-01','2023-04-10','2023-05-01','2023-05-08','2023-05-29','2023-07-14','2023-08-15','2023-11-01','2023-11-11','2023-12-25',
                           '2024-01-01','2024-04-01']
         
-       
+        dg = pd.read_csv('dg.csv')
         
         
         
@@ -150,8 +128,8 @@ def ana():
 
                                 - Energy consumption depends on each purpose which is possible to be explained by the registered profile in the contract. We have to divide the rations into smaller portions depending on the profile in order to observe better the consumption trend of each profile category later.
                                                            """)
-        
-       
+        DF = pd.read_csv('DF.csv', compression='gzip')
+        DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
         
         
         
@@ -227,8 +205,18 @@ def ana():
                         * 100
                         )
 
-        d_pivot = d_pivot.round(2)
-        d_pivot1 = d_pivot1.round(2)
+        for i in d_pivot.columns:
+                d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
+
+
+        for i in d_pivot1.columns:
+                d_pivot1[i] = d_pivot1[i].apply(lambda x: '%.2f' % x)
+
+        for i in d_pivot.columns:
+                d_pivot[i] = d_pivot[i].astype("float64")
+
+        for i in d_pivot1.columns:
+                d_pivot1[i] = d_pivot1[i].astype("float64")
 
 
         st.markdown("""
@@ -391,7 +379,9 @@ def ana():
         
         
         
-        
+        dg['Date'] = dg['Date'].astype('str')
+        season = dg.loc[(dg["Date"] >= "2023-03-21") & (dg["Date"] < "2024-03-01")]
+        season['Date'] = pd.to_datetime(season['Date'])
         
         
 
@@ -417,10 +407,14 @@ def ana():
     
     
         
-    graph_container = st.empty()
-    with graph_container:       
-        choice = st.radio('Choose a specification :',['Seasonal','Public holiday', 'School holiday'],key="spec_choice")
-        if choice == 'Seasonal':
+        
+    with st.container():
+        choice = st.multiselect(
+        'Choose a specification :',
+        options=['Seasonal','Public holiday', 'School holiday'],
+        default= 'Seasonal'
+        )
+        if choice == ['Seasonal']:
             
 
             palette = {"Spring": "pink", "Summer": "green",
@@ -444,7 +438,7 @@ def ana():
                     
             
             
-        elif choice == 'Public holiday':
+        elif choice == ['Public holiday']:
             tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
 
             fig,axs =plt.subplots(2,1,figsize=(12,12))
@@ -466,7 +460,7 @@ def ana():
             st.pyplot(fig)
             plt.close(fig)
             
-        elif choice == 'School holiday':
+        elif choice == ['School holiday']:
                 
                 fig,axs =plt.subplots(2,1,figsize=(12,12))
                 fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
@@ -549,7 +543,7 @@ def ana():
     
         
     #labels = df_cvdl["season"].unique()
-    
+    df_concat = pd.read_csv('df_concat.csv')
     dl = df_concat[df_concat['Code région'] == 24]
     dr = df_concat[df_concat['Code région'] == 32]
     labels = df_concat['Season'].unique()
