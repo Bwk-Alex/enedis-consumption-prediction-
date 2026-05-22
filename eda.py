@@ -158,7 +158,7 @@ def ana():
         ax.set_ylabel("")
 
         # Colonnes pour centrer
-        left, center, right = st.columns([1, 3, 1])
+        left, center, right = st.columns([1, 5, 1])
 
         with center:
             st.pyplot(fig, width="content")
