@@ -227,18 +227,8 @@ def ana():
                         * 100
                         )
 
-        for i in d_pivot.columns:
-                d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
-
-
-        for i in d_pivot1.columns:
-                d_pivot1[i] = d_pivot1[i].apply(lambda x: '%.2f' % x)
-
-        for i in d_pivot.columns:
-                d_pivot[i] = d_pivot[i].astype("float64")
-
-        for i in d_pivot1.columns:
-                d_pivot1[i] = d_pivot1[i].astype("float64")
+        d_pivot = d_pivot.round(2)
+        d_pivot1 = d_pivot1.round(2)
 
 
         st.markdown("""
@@ -401,9 +391,7 @@ def ana():
         
         
         
-        dg['Date'] = dg['Date'].astype('str')
-        season = dg.loc[(dg["Date"] >= "2023-03-21") & (dg["Date"] < "2024-03-01")]
-        season['Date'] = pd.to_datetime(season['Date'])
+        
         
         
 
