@@ -153,16 +153,16 @@ def ana():
             ax=ax,
             textprops={"fontsize": 8}
         )
-        
+
         ax.set_title("Segment Distribution", fontsize=10)
         ax.set_ylabel("")
-        
+
         # Colonnes pour centrer
-        left, center, right = st.columns([1, 2, 1])
-        
+        left, center, right = st.columns([1, 3, 1])
+
         with center:
             st.pyplot(fig, width="content")
-        
+
         plt.close(fig)
         
                 
