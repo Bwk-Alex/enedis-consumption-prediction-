@@ -467,7 +467,7 @@ def ana():
                 st.pyplot(fig)
                 
     show_consumption()   
-    st.write(season.dtype)                         
+    st.write(season.dtypes)                         
             
 
 
