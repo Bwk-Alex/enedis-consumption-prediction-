@@ -2,15 +2,21 @@ import streamlit as st
 from eda import intro, ana, ML,ML_explain
 
 # Background
-page_bg_img = f"""
+# Configuration de la page (Optionnel, mais aide à stabiliser le rendu)
+st.set_page_config(layout="wide")
+
+# Background corrigé et forcé
+page_bg_img = """
 <style>
-[data-testid="stAppViewContainer"] > .main {{background-color: #ffee78 !important;
-                                            
-                                            }}
-[data-testid="stHeader"] {{
-                        background: rgba(0,0,0,0);
-                        }}
-                        
+/* Cible le conteneur global de l'application */
+.stApp {
+    background-color: #ffee78 !important;
+}
+
+/* Transparence du header pour ne pas bloquer le jaune */
+[data-testid="stHeader"] {
+    background: rgba(0,0,0,0) !important;
+}
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
