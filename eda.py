@@ -119,7 +119,7 @@ def ana():
         plt.close(fig) 
 
         
-        st.subheader("###Segment and sub-segment", divider='rainbow')
+        st.markdown("### Segment and sub-segment")
         st.markdown(" ")
         st.subheader("🔹Consumer Profile")
         st.markdown("""
