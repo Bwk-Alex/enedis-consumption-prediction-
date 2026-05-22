@@ -380,10 +380,7 @@ def ana():
     def show_consumption():
 
         choice = st.radio(
-        'Choose a specification :',
-        options=['Seasonal','Public holiday','School holiday','Combined'],
-        default='Seasonal'
-        )   
+        'Choose a specification :',['Seasonal','Public holiday','School holiday','Combined'],horizontal= True)   
         
     
         if choice == ['Seasonal']:
