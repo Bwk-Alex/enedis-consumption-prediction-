@@ -409,7 +409,7 @@ def ana():
             
             
         elif choice == 'Public holiday':
-            tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
+            
 
             fig,axs =plt.subplots(2,1,figsize=(12,12))
             fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
@@ -421,6 +421,7 @@ def ana():
             sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
                 ax =axs[1],s = 80, color = 'black')     
             ax2.set_title('Profile : Hauts-de-France',  loc='left')
+            ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
             ax1.set_xlabel( ' ')
             ax1.set_ylabel('Total consumption in MWh')
             ax2.set_xlabel( ' ')
