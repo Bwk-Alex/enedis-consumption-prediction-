@@ -988,9 +988,9 @@ def ML_explain():
         X_test_scaled = scaler.transform(X_test)
         
         code = '''
-                    # Initialize X, y
-                    # 1st reound: X has 24 features
-                    X = df_concat.select_dtypes('number').drop('Total énergie soutirée (MWh)',axis = 1)
+        # Initialize X, y
+        # 1st reound: X has 24 features
+        X = df_concat.select_dtypes('number').drop('Total énergie soutirée (MWh)',axis = 1)
                     y= df_concat['Total énergie soutirée (MWh)']
 
 
