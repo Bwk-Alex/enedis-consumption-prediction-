@@ -308,7 +308,7 @@ def ana():
         tree_map.update_layout(margin=dict(t=50,l=25,r=25,b=25),title={"text": "Daily average regional consumption per contract with its power range","font": {"size": 20}})
         
         tree_map.update_traces(textinfo="label+value")
-        st.plotly_chart(tree_map,use_container_width=True,theme="streamlit")
+        st.plotly_chart(tree_map,width="stretch",theme="streamlit")
         
         
         
