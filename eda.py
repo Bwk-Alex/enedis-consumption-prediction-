@@ -768,7 +768,7 @@ def ML():
     st.plotly_chart(fig)
     
 def ML_explain(): 
-        df_concat = pd.read_csv(df_concat.csv)
+        df_concat = pd.read_csv('df_concat.csv')
         st.header("Overview of Dataframe", divider='rainbow')
         st.markdown(' ')
         st.markdown("""
