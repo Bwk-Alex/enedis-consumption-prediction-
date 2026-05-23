@@ -667,7 +667,7 @@ def intro():
                 
 def ML():
     ### Regroupement des fichiers pour avoir une matrice de travail
-    dg, DF, df_concat = charge()
+    df_concat = pd.read_csv(df_concat.csv)
     
     
     
@@ -768,7 +768,7 @@ def ML():
     st.plotly_chart(fig)
     
 def ML_explain(): 
-        dg, DF, df_concat = charge()
+        df_concat = pd.read_csv(df_concat.csv)
         st.header("Overview of Dataframe", divider='rainbow')
         st.markdown(' ')
         st.markdown("""
