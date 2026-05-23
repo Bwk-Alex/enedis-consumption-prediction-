@@ -17,7 +17,7 @@ from sklearn.decomposition import PCA
 from io import BytesIO
 import base64
 import textwrap
-from data_loader import charge
+from charge import charge
 
 
 def ana():
