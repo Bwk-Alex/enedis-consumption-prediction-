@@ -17,9 +17,12 @@ from sklearn.decomposition import PCA
 from io import BytesIO
 import base64
 import textwrap
+from data_loader import charge
+
 
 def ana():
-          
+        dg, DF, df_concat = charge()
+              
     
         # Set up a dataframe for graphiques and change the mesure unit from Wh to KWh
         
@@ -73,7 +76,7 @@ def ana():
                           '2023-01-01','2023-04-10','2023-05-01','2023-05-08','2023-05-29','2023-07-14','2023-08-15','2023-11-01','2023-11-11','2023-12-25',
                           '2024-01-01','2024-04-01']
         
-        dg = pd.read_csv('dg.csv')
+        
         
         
         
@@ -128,7 +131,7 @@ def ana():
 
                                 - Energy consumption depends on each purpose which is possible to be explained by the registered profile in the contract. We have to divide the rations into smaller portions depending on the profile in order to observe better the consumption trend of each profile category later.
                                                            """)
-        DF = pd.read_csv('DF.csv', compression='gzip')
+        
         DF['Categorie'] = DF['Categorie'].replace({'Pro':'Professional','Res':'Residence','Ent':'Company'})
               
         
@@ -215,11 +218,7 @@ def ana():
                 ax.set_xlabel(' ')
                 st.pyplot(fig)
                 plt.close(fig)
-                
-                
-                
-                
-                
+                    
         with tab2:        
                 fig,ax =plt.subplots(figsize =(12,7))
                 ax = sns.heatmap(d_pivot.drop('Total',axis=1), annot=True, cmap="Blues",annot_kws={"fontsize":8},vmin=0, vmax=100,linewidth=.8,cbar = False)
@@ -479,7 +478,7 @@ def ana():
         
 
         #labels = df_cvdl["season"].unique()
-        df_concat = pd.read_csv('df_concat.csv')
+        
         dl = df_concat[df_concat['Code région'] == 24]
         dr = df_concat[df_concat['Code région'] == 32]
         labels = df_concat['Season'].unique()
@@ -668,7 +667,7 @@ def intro():
                 
 def ML():
     ### Regroupement des fichiers pour avoir une matrice de travail
-    df_concat = pd.read_csv('df_concat.csv')
+    dg, DF, df_concat = charge()
     
     
     
@@ -769,7 +768,7 @@ def ML():
     st.plotly_chart(fig)
     
 def ML_explain(): 
-        df_concat = pd.read_csv('df_concat.csv') 
+        dg, DF, df_concat = charge()
         st.header("Overview of Dataframe", divider='rainbow')
         st.markdown(' ')
         st.markdown("""
