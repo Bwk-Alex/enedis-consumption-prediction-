@@ -326,7 +326,7 @@ def ana():
                            - Through the differents seasons consumption is clearly different. Winter's consumption is the highest wheareas the Summer's one is the lowest.
                            - School holidays and public holidays have no influence on consumption.             
                            """)
-        return(DF,dg,font_title,season)
+        
     
     
     
