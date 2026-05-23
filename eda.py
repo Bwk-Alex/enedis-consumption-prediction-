@@ -19,8 +19,8 @@ import base64
 import textwrap
 
 def ana():
-    #@st.cache_data
-    def Enedis():
+          
+    
         # Set up a dataframe for graphiques and change the mesure unit from Wh to KWh
         
         st.title("Regional Consupmtion Analysis")
@@ -364,164 +364,164 @@ def ana():
                            """)
         return(DF,dg,font_title,season)
     
-    (DF,dg,font_title,season) = Enedis()
     
-    Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
+    
+        Vacances = {'période 1':'blue','période 2':'blue','période 3':'blue','période 4':'blue','période 5':'blue','période 6':'blue',
                         'période 7':'blue','période 8':'blue','période 9':'blue','période 20':'green','période 21':'green',
                         'période 22':'green','période 23':'green','période 24':'green','période 25':'green','période 26':'green',
                         'période 27':'green','période 28':'green','période 29':'green','période 30':'green','période 31':'green'}
         
-    Jour_ferie = ['2022-04-18','2022-05-01','2022-05-08','2022-05-26','2022-06-06','2022-07-14','2022-08-15','2022-11-01','2022-11-11','2022-12-25',
+        Jour_ferie = ['2022-04-18','2022-05-01','2022-05-08','2022-05-26','2022-06-06','2022-07-14','2022-08-15','2022-11-01','2022-11-11','2022-12-25',
                           '2023-01-01','2023-04-10','2023-05-01','2023-05-08','2023-05-29','2023-07-14','2023-08-15','2023-11-01','2023-11-11','2023-12-25',
                           '2024-01-01','2024-04-01']
-    Jour_ferie = pd.to_datetime(Jour_ferie)
+        Jour_ferie = pd.to_datetime(Jour_ferie)
     
     
-    @st.fragment
-    def show_consumption():
+        @st.fragment
+        def show_consumption():
 
-        choice = st.radio(
-        'Choose a specification :',['Seasonal','Public holiday','School holiday','Combined'],horizontal= True)   
+                choice = st.radio(
+                'Choose a specification :',['Seasonal','Public holiday','School holiday','Combined'],horizontal= True)   
         
     
-        if choice == 'Seasonal':
-            
-
-            palette = {"Spring": "pink", "Summer": "green",
-                        "Autumn": "#fec44f", "Winter": "#3182bd"}
-            fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Seasonal consumption per point in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-            ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[0],palette = palette)
-            ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[1],palette = palette)
-            ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-            ax2.set_title('Profile : Hauts-de-France',  loc='left')
-            ax1.set_xlabel( ' ')
-            ax1.set_ylabel('Total consumption in MWh')
-            ax2.set_xlabel( ' ')
-            ax2.set_ylabel('Total consumption in MWh')
-            handles, labels = ax1.get_legend_handles_labels()
-            fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
-            ax1.get_legend().remove()
-            ax2.get_legend().remove()
-            st.pyplot(fig) 
-           
-                    
-            
-            
-        elif choice == 'Public holiday':
-            
-
-            fig,axs =plt.subplots(2,1,figsize=(12,12))
-            fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-            ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[0],color = 'green')
-            sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
-                ax =axs[0],s = 80, color = 'black')
-
-            ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[1],color = 'green')
-            sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
-                ax =axs[1],s = 80, color = 'black')     
-            ax2.set_title('Profile : Hauts-de-France',  loc='left')
-            ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-            ax1.set_xlabel( ' ')
-            ax1.set_ylabel('Total consumption in MWh')
-            ax2.set_xlabel( ' ')
-            ax2.set_ylabel('Total consumption in MWh')
-            handles, labels = ax1.get_legend_handles_labels()
-            fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
-            st.pyplot(fig)
-            
-            
-        elif choice == 'School holiday':
+                if choice == 'Seasonal':
                 
-                fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-                ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
-                ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
-                ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-                ax2.set_title('Profile : Hauts-de-France',  loc='left')
-                ax1.set_xlabel( ' ')
-                ax1.set_ylabel('Total consumption in MWh')
-                ax2.set_xlabel( ' ')
-                ax2.set_ylabel('Total consumption in MWh')
-                handles, labels = ax1.get_legend_handles_labels()
-                fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
-                st.pyplot(fig)
+
+                    palette = {"Spring": "pink", "Summer": "green",
+                                "Autumn": "#fec44f", "Winter": "#3182bd"}
+                    fig,axs =plt.subplots(2,1,figsize=(12,12))
+                    fig.suptitle("Seasonal consumption per point in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+                    ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[0],palette = palette)
+                    ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue="Season",ax =axs[1],palette = palette)
+                    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+                    ax2.set_title('Profile : Hauts-de-France',  loc='left')
+                    ax1.set_xlabel( ' ')
+                    ax1.set_ylabel('Total consumption in MWh')
+                    ax2.set_xlabel( ' ')
+                    ax2.set_ylabel('Total consumption in MWh')
+                    handles, labels = ax1.get_legend_handles_labels()
+                    fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
+                    ax1.get_legend().remove()
+                    ax2.get_legend().remove()
+                    st.pyplot(fig) 
+
+
+
+
+                elif choice == 'Public holiday':
                 
-            
-            
-        elif choice == 'Combined':
-                fig,axs =plt.subplots(2,1,figsize=(12,12))
-                fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-                ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
-                ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
-                sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
-                ax =axs[1],s = 80, color = 'black')
-                sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
-                ax =axs[0],s = 80, color = 'black')
-                ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-                ax2.set_title('Profile : Hauts-de-France',  loc='left')
-                ax1.set_xlabel( ' ')
-                ax1.set_ylabel('Total consumption in MWh')
-                ax2.set_xlabel( ' ')
-                ax2.set_ylabel('Total consumption in MWh')
-                handles, labels = ax1.get_legend_handles_labels()
-                fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
-                st.pyplot(fig)
-                
-    show_consumption()   
-                            
-            
+
+                    fig,axs =plt.subplots(2,1,figsize=(12,12))
+                    fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+                    ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[0],color = 'green')
+                    sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
+                        ax =axs[0],s = 80, color = 'black')
+
+                    ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',ax =axs[1],color = 'green')
+                    sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
+                        ax =axs[1],s = 80, color = 'black')     
+                    ax2.set_title('Profile : Hauts-de-France',  loc='left')
+                    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+                    ax1.set_xlabel( ' ')
+                    ax1.set_ylabel('Total consumption in MWh')
+                    ax2.set_xlabel( ' ')
+                    ax2.set_ylabel('Total consumption in MWh')
+                    handles, labels = ax1.get_legend_handles_labels()
+                    fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
+                    st.pyplot(fig)
+
+
+                elif choice == 'School holiday':
+
+                        fig,axs =plt.subplots(2,1,figsize=(12,12))
+                        fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+                        ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
+                        ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
+                        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+                        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+                        ax1.set_xlabel( ' ')
+                        ax1.set_ylabel('Total consumption in MWh')
+                        ax2.set_xlabel( ' ')
+                        ax2.set_ylabel('Total consumption in MWh')
+                        handles, labels = ax1.get_legend_handles_labels()
+                        fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
+                        st.pyplot(fig)
 
 
 
-        ### Boxplot distribution of consum by holidays ###
-        
-    st.markdown(""" The previouses charts and the folowing one show us electric consumption is quite equal along differents kind of days except for the school holidays. 
-                Usually people travel during this period.
+                elif choice == 'Combined':
+                        fig,axs =plt.subplots(2,1,figsize=(12,12))
+                        fig.suptitle("Consumption evolution by time in MWh", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+                        ax1 = sns.lineplot(data = season[season['Code région']==24],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[0],palette = Vacances,legend = False)
+                        ax2 = sns.lineplot(data = season[season['Code région']==32],x= 'Date',y='Total énergie soutirée (MWh)',hue = 'Période',ax =axs[1],palette = Vacances,legend = False)
+                        sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==32)],x = 'Date',y = 'Total énergie soutirée (MWh)',
+                        ax =axs[1],s = 80, color = 'black')
+                        sns.scatterplot(data = season[(season['Date'].isin(Jour_ferie)) & (season['Code région']==24)],x = 'Date',y = 'Total énergie soutirée (MWh)',
+                        ax =axs[0],s = 80, color = 'black')
+                        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+                        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+                        ax1.set_xlabel( ' ')
+                        ax1.set_ylabel('Total consumption in MWh')
+                        ax2.set_xlabel( ' ')
+                        ax2.set_ylabel('Total consumption in MWh')
+                        handles, labels = ax1.get_legend_handles_labels()
+                        fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.91),ncol=4)
+                        st.pyplot(fig)
+
+        show_consumption()   
+
+
+
+
+
+                ### Boxplot distribution of consum by holidays ###
+
+        st.markdown(""" The previouses charts and the folowing one show us electric consumption is quite equal along differents kind of days except for the school holidays. 
+                        Usually people travel during this period.
                 
                 """)
 
-    palette_box = {"National Holidays":"#2c7fb8",
+        palette_box = {"National Holidays":"#2c7fb8",
                   "Week-end": "#2ca25f", "School Holidays": "#fa9fb5",
                   "Normal Day": "#fee6ce"}
         
     
 
-    fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by kind of day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.barplot(data = season[season['Code région']==24],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Day_type',palette = palette_box,errorbar = None)
-    ax2 = sns.barplot(data = season[season['Code région']==32],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Day_type',palette = palette_box,errorbar = None)
-    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-    ax1.set_ylabel(' ')
-    ax2.set_ylabel(' ')
-    ax1.set_xlabel(' ')
-    ax2.set_xlabel(' ')
-    ax2.set_title('Profile : Hauts-de-France',  loc='left')
-    for i in ax1.containers:
-        ax1.bar_label(i,)
-    for i in ax2.containers:
-        ax2.bar_label(i,)
-    st.pyplot(fig)
-    plt.close(fig)
+        fig,axs =plt.subplots(2,1,figsize=(12,12))
+        fig.suptitle("AVG consumption per day by kind of day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+        ax1 = sns.barplot(data = season[season['Code région']==24],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Day_type',palette = palette_box,errorbar = None)
+        ax2 = sns.barplot(data = season[season['Code région']==32],x= 'Day_type',y='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Day_type',palette = palette_box,errorbar = None)
+        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+        ax1.set_ylabel(' ')
+        ax2.set_ylabel(' ')
+        ax1.set_xlabel(' ')
+        ax2.set_xlabel(' ')
+        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+        for i in ax1.containers:
+            ax1.bar_label(i,)
+        for i in ax2.containers:
+            ax2.bar_label(i,)
+        st.pyplot(fig)
+        plt.close(fig)
             
 
         
         ### Scatter min/max temerature ###
 
-    st.header("Correlation of weather's features", divider='rainbow') 
-        
-    st.markdown("Electricity consumption is clearly different depending on temperature. The more it's cold the more the consumption is important. Temperature is definitely an important factor of the electrical needs.")
-        
-    
-        
-    #labels = df_cvdl["season"].unique()
-    df_concat = pd.read_csv('df_concat.csv')
-    dl = df_concat[df_concat['Code région'] == 24]
-    dr = df_concat[df_concat['Code région'] == 32]
-    labels = df_concat['Season'].unique()
-    tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
+        st.header("Correlation of weather's features", divider='rainbow') 
 
-    with tab1:
+        st.markdown("Electricity consumption is clearly different depending on temperature. The more it's cold the more the consumption is important. Temperature is definitely an important factor of the electrical needs.")
+
+        
+
+        #labels = df_cvdl["season"].unique()
+        df_concat = pd.read_csv('df_concat.csv')
+        dl = df_concat[df_concat['Code région'] == 24]
+        dr = df_concat[df_concat['Code région'] == 32]
+        labels = df_concat['Season'].unique()
+        tab1, tab2 = st.tabs(["Centre-Val de Loire", "Hauts-de-France"])
+
+        with tab1:
 
             buttonsLabels = [dict(label = "All", method = "update",visible=True, args = [{'x' : [dl['MAX_TEMPERATURE_C']]},{'y' : [dl['TEMPERATURE_EVENING_C']]},
                                                                                 {'color': [dl['Total énergie soutirée (MWh)']]},
@@ -550,7 +550,7 @@ def ana():
 
             st.plotly_chart(fig1, theme="streamlit")         
 
-    with tab2:
+        with tab2:
 
             buttonslist = [dict(label = "All", method = "update",visible=True, args = [{'x' : [dr['MAX_TEMPERATURE_C']]},{'y' : [dr['TEMPERATURE_EVENING_C']]},
                                                                                 {'color': [dr['Total énergie soutirée (MWh)']]},
@@ -584,8 +584,8 @@ def ana():
     
     
     
-    st.markdown(" In the following charts the consumption is split along it's rainy or not, snowy or not and humidity's levels.")
-    st.markdown("""
+        st.markdown(" In the following charts the consumption is split along it's rainy or not, snowy or not and humidity's levels.")
+        st.markdown("""
                 
                 - With further analyses we can notice consumption is quite different for both regions depending on two of the three factors.
                 - Rain is definitely not an important factor of consumption.
@@ -595,79 +595,66 @@ def ana():
 
     ### Boxplot Rainy day consumption ###
     
-    fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by rainy/non rainy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Rain')
-    ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Rain')
-    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-    ax1.set_ylabel(' ')
-    ax2.set_ylabel(' ')
-    ax2.set_title('Profile : Hauts-de-France',  loc='left')
-    st.pyplot(fig)
-    plt.close(fig)
-    
-    df_concat['Humidity'] = df_concat['HUMIDITY_MAX_PERCENT'].apply(lambda x : "Humidity > 70 %" if x> 70 else "Suitable Humidity")
-    
-    
-    
-    fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by Humidity Levels", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Humidity')
-    ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Humidity')
-    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-    ax1.set_ylabel(' ')
-    ax2.set_ylabel(' ')
-    ax2.set_title('Profile : Hauts-de-France',  loc='left')
-    st.pyplot(fig)
-    plt.close(fig)
-    
-    df_concat['Date'] = pd.to_datetime(df_concat['Date'])
-    df_concat['Snow'] = df_concat['TOTAL_SNOW_MM'].apply(lambda x : 'No snow' if x ==0 else 'Snow')
-    
-    
-    fig,axs =plt.subplots(2,1,figsize=(12,12))
-    fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
-    ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
-    ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Snow')
-    ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
-    ax1.set_ylabel(' ')
-    ax2.set_ylabel(' ')
-    ax2.set_title('Profile : Hauts-de-France',  loc='left')
-    st.pyplot(fig)
-    plt.close(fig)
-    
-    st.markdown(""" The consumption for the differents winds level are quite similar so the wind level isn't an important factor for electric consumption.
-            
-            """)
-    df_concat['Wind'] = df_concat['WINDSPEED_MAX_KMH'].apply(lambda x : 'Light' if x <10 else 'Moderate' if 10<=x <= 40 else 'Strong')
-    df_concat['Région'] = df_concat['Code région'].apply(lambda x : 'Centre-Val de Loire' if x == 24 else 'Hauts-de-France')
-    fig,axs =plt.subplots(figsize=(12,7))
-    fig.suptitle("AVG consumption per day by wind's levels", family= 'sans-serif',color=  '#114b98',weight= 'bold',  fontsize = 22)
-    ax = sns.barplot(data = df_concat,x= 'Wind', y ='Total énergie soutirée (MWh)',hue = 'Région',order = ['Light','Moderate','Strong'],errorbar = None)
-    handles, labels = ax.get_legend_handles_labels()
-    fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.93),ncol=2)
-    ax.set_xlabel(' ')
-    ax.set_ylabel("Total consumption in MWH")
-    ax.get_legend().remove()
-    for i in ax.containers:
-        ax.bar_label(i,)
-    st.pyplot(fig)
-    plt.close(fig)
+        fig,axs =plt.subplots(2,1,figsize=(12,12))
+        fig.suptitle("AVG consumption per day by rainy/non rainy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+        ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Rain')
+        ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Rain',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Rain')
+        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+        ax1.set_ylabel(' ')
+        ax2.set_ylabel(' ')
+        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+        st.pyplot(fig)
+        plt.close(fig)
+        
+        df_concat['Humidity'] = df_concat['HUMIDITY_MAX_PERCENT'].apply(lambda x : "Humidity > 70 %" if x> 70 else "Suitable Humidity")
+        
+        
+        
+        fig,axs =plt.subplots(2,1,figsize=(12,12))
+        fig.suptitle("AVG consumption per day by Humidity Levels", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+        ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Humidity')
+        ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Humidity',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Humidity')
+        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+        ax1.set_ylabel(' ')
+        ax2.set_ylabel(' ')
+        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+        st.pyplot(fig)
+        plt.close(fig)
+        
+        df_concat['Date'] = pd.to_datetime(df_concat['Date'])
+        df_concat['Snow'] = df_concat['TOTAL_SNOW_MM'].apply(lambda x : 'No snow' if x ==0 else 'Snow')
+        
+        
+        fig,axs =plt.subplots(2,1,figsize=(12,12))
+        fig.suptitle("AVG consumption per day by snowy/non snowy day", family= 'sans-serif',color=  '#114b98',weight= 'bold', fontsize = 22)
+        ax1 = sns.boxplot(data = df_concat[df_concat['Code région']==24],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[0],hue = 'Snow')
+        ax2 = sns.boxplot(data = df_concat[df_concat['Code région']==32],y= 'Snow',x='Total énergie soutirée (MWh)',ax =axs[1],hue = 'Snow')
+        ax1.set_title('Profile : Centre-Val de Loire',  loc='left')
+        ax1.set_ylabel(' ')
+        ax2.set_ylabel(' ')
+        ax2.set_title('Profile : Hauts-de-France',  loc='left')
+        st.pyplot(fig)
+        plt.close(fig)
+        
+        st.markdown(""" The consumption for the differents winds level are quite similar so the wind level isn't an important factor for electric consumption.
+
+                """)
+        df_concat['Wind'] = df_concat['WINDSPEED_MAX_KMH'].apply(lambda x : 'Light' if x <10 else 'Moderate' if 10<=x <= 40 else 'Strong')
+        df_concat['Région'] = df_concat['Code région'].apply(lambda x : 'Centre-Val de Loire' if x == 24 else 'Hauts-de-France')
+        fig,axs =plt.subplots(figsize=(12,7))
+        fig.suptitle("AVG consumption per day by wind's levels", family= 'sans-serif',color=  '#114b98',weight= 'bold',  fontsize = 22)
+        ax = sns.barplot(data = df_concat,x= 'Wind', y ='Total énergie soutirée (MWh)',hue = 'Région',order = ['Light','Moderate','Strong'],errorbar = None)
+        handles, labels = ax.get_legend_handles_labels()
+        fig.legend(handles, labels, loc='upper right',bbox_to_anchor=(0.90,0.93),ncol=2)
+        ax.set_xlabel(' ')
+        ax.set_ylabel("Total consumption in MWH")
+        ax.get_legend().remove()
+        for i in ax.containers:
+            ax.bar_label(i,)
+        st.pyplot(fig)
+        plt.close(fig)
  
 
-
- 
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
 
 def intro():
         st.title("Electricity Consumption Prediction System")
