@@ -667,7 +667,7 @@ def intro():
                 
 def ML():
     ### Regroupement des fichiers pour avoir une matrice de travail
-    df_concat = pd.read_csv('df_concat'.csv)
+    df_concat = pd.read_csv('df_concat.csv')
     
     
     
