@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-@st.cache_data
+
 def charge():
     dg = pd.read_csv("dg.csv")
     DF = pd.read_csv("DF.csv", compression="gzip")
