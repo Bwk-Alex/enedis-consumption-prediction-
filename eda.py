@@ -155,11 +155,7 @@ def ana():
 
         plt.close(fig)
         
-                
-        
-        
-       
-        
+   
         
 ### ajout df et creation tableau pour heat map alex     
         
@@ -173,47 +169,15 @@ def ana():
         d_pivot  = d_pivot.drop([ 'ENT3 (+ ENT4 + ENT5)','ENT1 (+ ENT2)'])
         d_pivot1  = d_pivot1.drop([ 'ENT3 (+ ENT4 + ENT5)','ENT1 (+ ENT2)'])
         Res = []
-        for j in range(len(d_pivot)):
-                s =0
-                for i in d_pivot.columns:
-                        s+=d_pivot[i].iloc[j]
-                Res.append(s)
-
-
-
-        Res1 = []
-        for j in range(len(d_pivot1)):
-                s=0
-                for i in d_pivot1.columns:
-                        s+=d_pivot1[i].iloc[j]
-                Res1.append(s)
-
-
-
-        d_pivot['Total'] = Res
-
-
-        d_pivot1['Total'] = Res1
-
-        for j in range(len(d_pivot)):
-                for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
+        d_pivot["Total"] = d_pivot.sum(axis=1)
+        d_pivot1["Total"] = d_pivot1.sum(axis=1)
+        
+        colonnes = ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
                         'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
-                        'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot.loc[d_pivot.index[j], i] = (
-                        d_pivot.loc[d_pivot.index[j], i]
-                        / d_pivot.loc[d_pivot.index[j], 'Total']
-                         * 100
-                        )
+                        'P8: ]24-30] kVA','P9: ]30-36] kVA']
 
-        for j in range(len(d_pivot1)):
-                for i in ['P1 : ]0-12] kVA','P1: ]0-3] kVA','P1: ]0-6] kVA','P1: ]0-9] kVA','P2: ]3-6] kVA','P3: ]6-9] kVA','P4: ]9-12] kVA',
-                        'P5: ]12-15] kVA','P6: ]15-18] kVA','P6: ]15-36] kVA','P7: ]18-24] kVA','P7: ]18-30] kVA','P7: ]18-36] kVA',
-                        'P8: ]24-30] kVA','P9: ]30-36] kVA']:
-                        d_pivot1.loc[d_pivot1.index[j], i] = (
-                        d_pivot1.loc[d_pivot1.index[j], i]
-                        / d_pivot1.loc[d_pivot1.index[j], 'Total']
-                        * 100
-                        )
+        d_pivot[colonnes] = (d_pivot[colonnes].div(d_pivot["Total"], axis=0)*100)
+        d_pivot1[colonnes] = (d_pivot1[colonnes].div(d_pivot1["Total"], axis=0)*100)
 
         for i in d_pivot.columns:
                 d_pivot[i] = d_pivot[i].apply(lambda x: '%.2f' % x)
